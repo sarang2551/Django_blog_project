@@ -4,11 +4,11 @@
 {% if sent %}
 <h1>E-mail successfully sent</h1>
 <p>
-    {{post.title}} was successfully sent to {{form.cleaned_data.to}}.
+    "{{post.title}}" was successfully sent to {{form.cleaned_data.to}}.
 </p>
 {% else %}
 <h1>
-    Share {{post.title}} by e-mail
+    Share "{{post.title}}"" by e-mail
 </h1>
 <!-- display the empty form with all the python programmed components -->
 <form method="post">

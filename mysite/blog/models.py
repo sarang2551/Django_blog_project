@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -57,3 +58,21 @@ class Post(models.Model):
                            self.publish.day,
                            self.slug
                        ])
+
+class Comment(models.Model):
+    # Post is a database object with a one to many relationship with comments
+    # One Post can have many comments
+    # Comments on a post can be accessed by Post.comments.all() because of the 'comments' related_name
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    # for disabling inappropriate comments
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+    def __str__(self) -> str:
+        return f'Comment by {self.name} on {self.post}'

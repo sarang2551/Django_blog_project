@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 
 
 # add this model to the admin site for easy interfacing
@@ -19,4 +19,11 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     # default ordering attribute
     ordering = ('status', 'publish')
+    
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name','email','post','created','active')
+    list_filter = ('active','created','updated')
+    search_fields = ('name','email','body')
+
 # Register your models here.
