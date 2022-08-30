@@ -6,23 +6,29 @@ from django.views.generic import ListView
 from .forms import EmailPostForm
 from django.core.mail import send_mail
 
+# django workflow
+# python component --> view --> registering url --> template
+
 def post_share(request, post_id):
     # Retrieve post by id
     post = get_object_or_404(Post, id=post_id, status="published")
+    sent_mail = False
     if request.method == "POST":
         # Form was submitted
         form = EmailPostForm(request.POST)
-        sent_mail = False
         if form.is_valid():
             # Form field passes validation
             cd = form.cleaned_data() # dictionary object with valid data from a user (not necessarily the author)
             #....send email
             post_url = request.build_absolute_url(post.get_absolute_url()) # getting the post detail url
-            email_subject = f'{cd.name} recommends you read {post.title}'
+            email_subject = f'{cd.name} recommends you read {post.title} at {post_url}'
+            email_message = f'Read {post.title} at {post.url}\n\n {cd.name}\'s comments {cd.comments}.'
+            send_mail(email_subject,email_message,'sarang.nirwan@gmail.com',cd.to)
+            sent_mail = True
     else:
         # if the method is 'GET' then display an empty form
         form = EmailPostForm()
-    return render(request, 'blog/post/share.html',{'post':post,'form':form})
+    return render(request, 'blog/post/share.html',{'post':post,'form':form,'sent':sent_mail})
 class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
