@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # custom manager class to get published posts
 class PublishedManager(models.Manager):
@@ -40,7 +41,8 @@ class Post(models.Model):
 
     objects = models.Manager()  # default manager
     published = PublishedManager()  # custom manager
-
+    # tags have a many-to-many relationship to posts
+    tags = TaggableManager() # Taggagle Manager allows the addition/removal/retreival of tags
     # descending order using the negative prefix, posts published recently will appear first
     class Meta:
         ordering = ('-publish',)
@@ -76,3 +78,4 @@ class Comment(models.Model):
         ordering = ('created',)
     def __str__(self) -> str:
         return f'Comment by {self.name} on {self.post}'
+

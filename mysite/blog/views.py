@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from taggit.models import Tag
 
 # django workflow
 # python component --> view --> registering url --> template
@@ -36,8 +37,12 @@ class PostListView(ListView):
     template_name = 'blog/post/list.html'
 
 # request parameter is required by all views
-def post_list(request):
+def post_list(request, tag_slug = None):
     posts = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        posts = posts.filter(tags__in=[tag])
     pagi = Paginator(posts,3) # 3 pages in each page
     page = request.GET.get('page') # indicates the page number (page is an integer)
     try:
@@ -48,7 +53,7 @@ def post_list(request):
     except EmptyPage:
         # if page is out of index deliver the last page
         p = pagi.page(pagi.num_pages)
-    return render(request, 'blog/post/list.html', {'page':page , 'posts': p})
+    return render(request, 'blog/post/list.html', {'page':page , 'posts': p,'tag':tag})
 
 
 # retrieve one post
