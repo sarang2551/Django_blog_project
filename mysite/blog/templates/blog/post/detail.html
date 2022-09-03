@@ -1,9 +1,10 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 {% block title %}{{post.title}}{% endblock %}
 {% block content %}
 <h1>{{post.title}}</h1><span>Post id: {{post.id}}</span>
 <p class="date">Published {{post.publish}} by {{post.author}}</p>
-{{post.body|linebreaks}}
+{{post.body|markdown}}
 <p>
     <!-- Building the URL using inbuilt Django url, namespace: blog, name of url:post_share passing the post.id as an arguement-->
     <a href="{% url "blog:post_share" post.id %}">
