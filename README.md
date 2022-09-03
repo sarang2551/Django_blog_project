@@ -7,3 +7,5 @@ Features:
 1. Creating/Deleting/Updating blogs
 2. Publishing blogs (Leaving them as drafts)
 3. Sharing blogs using email
+4. Tagging posts
+5. Filtering posts based on tags
