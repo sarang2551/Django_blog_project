@@ -1,5 +1,6 @@
 from django import template
 from ..models import Post
+from django.db.models import Count
 
 register = template.Library()
 # register a tag called "total_posts"
@@ -14,3 +15,10 @@ def show_latest_posts(count=5):
     # slice the list of posts to only show the top 5
     latest_posts = Post.published.order_by('-publish')[:count]
     return {'latest_posts':latest_posts}
+
+# a reusable variable that returns blogs with the most comments
+@register.simple_tag
+def get_most_commented_posts(count = 5):
+    # annonate to aggregate the total number of comments
+    # slice to show the top count posts
+    return Post.published.annotate(total_comments = Count('comments')).order_by('-total_comments')[:count]
