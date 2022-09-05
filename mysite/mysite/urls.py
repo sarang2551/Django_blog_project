@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSiteMap
 
+sitemaps = {
+    'posts':PostSiteMap
+}
 # all the blog urls are under the namespace 'blog' which needs to be unique across the entire project
 # including file blog/url using the include function
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls', namespace='blog'))
+    path('blog/', include('blog.urls', namespace='blog')),
+    path('sitemap.xml',sitemap,{'sitemaps':sitemaps},name='django.contrib.sitemaps.views.sitemap') # the sitemaps dictionary is passed to the sitemaps view
 ]
