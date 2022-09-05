@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'taggit',
     'django.contrib.sites',
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
+    'django.contrib.postgres'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+# Start database server using cmd: pg_ctl -D mylocal_db -l logfile start
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
