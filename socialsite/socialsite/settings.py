@@ -27,7 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# tells django which url to redirect the user to after a successful login if no "next" parameter is present in the request
+LOGIN_REDIRECT_URL  = 'dashboard'
+# the url to redirect the user to log in 
+LOGIN_URL = 'login'
+# the url to redirect the user to log out 
+LOGOUT_URL = 'logout'
 # Application definition
 # Registering the account app as the first element ensures that Django uses the authentication templates from this application first 
 INSTALLED_APPS = [

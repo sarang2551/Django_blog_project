@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login # in-built authentication framework
 from django.contrib.auth.views import LoginView,LogoutView
 from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
 
 def user_login(request):
     if request.method == "POST":
@@ -23,5 +24,8 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'account/login.html', {'form':form}) # pass the form data to the html file
 
-
+# if the user is not authenticated, then he is redirected to the login page with the originally requested URL as GET parameter named "next"
+@login_required
+def dashboard(request):
+    return render(request, "account/dashboard.html",{'section':'dashboard'})
 # Create your views here.
