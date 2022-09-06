@@ -1,11 +1,7 @@
-# Django_blog_project
+# Django_project
 
-This is a simple blog app that I started in order to get a better understanding of Django.
-(Having only worked with React prior to this)
+This is a experimental project as I learn how Django works (having only worked with React before) and all the in-built functionalities Django provides
 
-Features:
-1. Creating/Deleting/Updating blogs
-2. Publishing blogs (Leaving them as drafts)
-3. Sharing blogs using email
-4. Tagging posts
-5. Filtering posts based on tags
+
+1. Blog project: Search engine, tagging, commenting, emailing
+2. Social site: Authentication, (work in progress)
