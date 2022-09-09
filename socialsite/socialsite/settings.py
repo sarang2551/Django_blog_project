@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 # tells django which url to redirect the user to after a successful login if no "next" parameter is present in the request
 LOGIN_REDIRECT_URL  = 'dashboard'
 # the url to redirect the user to log in 
